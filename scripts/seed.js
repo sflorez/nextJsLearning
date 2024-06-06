@@ -7,6 +7,7 @@ const {
 } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
 
+// @ts-ignore
 async function seedUsers(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -24,6 +25,7 @@ async function seedUsers(client) {
 
     // Insert data into the "users" table
     const insertedUsers = await Promise.all(
+      // @ts-ignore
       users.map(async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
         return client.sql`
@@ -46,6 +48,7 @@ async function seedUsers(client) {
   }
 }
 
+// @ts-ignore
 async function seedInvoices(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -66,6 +69,7 @@ async function seedInvoices(client) {
     // Insert data into the "invoices" table
     const insertedInvoices = await Promise.all(
       invoices.map(
+        // @ts-ignore
         (invoice) => client.sql`
         INSERT INTO invoices (customer_id, amount, status, date)
         VALUES (${invoice.customer_id}, ${invoice.amount}, ${invoice.status}, ${invoice.date})
@@ -86,6 +90,7 @@ async function seedInvoices(client) {
   }
 }
 
+// @ts-ignore
 async function seedCustomers(client) {
   try {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -105,6 +110,7 @@ async function seedCustomers(client) {
     // Insert data into the "customers" table
     const insertedCustomers = await Promise.all(
       customers.map(
+        // @ts-ignore
         (customer) => client.sql`
         INSERT INTO customers (id, name, email, image_url)
         VALUES (${customer.id}, ${customer.name}, ${customer.email}, ${customer.image_url})
@@ -125,6 +131,7 @@ async function seedCustomers(client) {
   }
 }
 
+// @ts-ignore
 async function seedRevenue(client) {
   try {
     // Create the "revenue" table if it doesn't exist
@@ -140,6 +147,7 @@ async function seedRevenue(client) {
     // Insert data into the "revenue" table
     const insertedRevenue = await Promise.all(
       revenue.map(
+        // @ts-ignore
         (rev) => client.sql`
         INSERT INTO revenue (month, revenue)
         VALUES (${rev.month}, ${rev.revenue})
