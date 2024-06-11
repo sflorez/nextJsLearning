@@ -15,7 +15,6 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
   const allPages = generatePagination(currentPage, totalPages);
 
   const createPageURL = (pageNumber: number | string) => {
-    console.log(searchParams)
     const params = new URLSearchParams(searchParams);
     params.set('page', pageNumber.toString());
     return `${pathname}?${params.toString()}`;
@@ -84,6 +83,7 @@ function PaginationNumber({
       'text-gray-300': position === 'middle',
     },
   );
+  console.log(`generating number... ${page}` )
 
   return isActive || position === 'middle' ? (
     <div className={className}>{page}</div>
